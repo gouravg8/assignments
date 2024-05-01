@@ -7,6 +7,10 @@
     "test": "tests"
   },
   "keywords": [],
+  "type": "module",
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^29.7.0"
+  }
 }
