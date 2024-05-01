@@ -15,10 +15,8 @@ function isAnagram(str1, str2) {
 
   for (let i = 0; i < str1Arr.length; i++) {
     if (!str2Arr.includes(str1Arr[i])) {
-      // console.log(str1Arr[i], "not present in", str2Arr);
       return false;
     } else {
-      // console.log(str1Arr[i], "present in", str2Arr);
       str2Arr.splice(str2Arr.indexOf(str1Arr[i]), 1);
     }
   }
