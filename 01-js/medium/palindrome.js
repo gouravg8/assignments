@@ -4,7 +4,19 @@
 */
 
 function isPalindrome(str) {
+  const regex = /[\s\p{P}]/gu;
+  let strArr = str.toLowerCase().replace(regex, "").split("");
+  let s = 0,
+    e = strArr.length - 1;
+  while (s <= e) {
+    if (strArr[s] != strArr[e]) {
+      return false;
+    }
+    s++;
+    e--;
+  }
   return true;
 }
+// console.log(str[2] === str[str.length - 2]);
 
-module.exports = isPalindrome;
+export default isPalindrome;
