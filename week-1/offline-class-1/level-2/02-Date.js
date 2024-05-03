@@ -9,6 +9,8 @@ function dateMethods() {
   console.log("Hours:", currentDate.getHours());
   console.log("Minutes:", currentDate.getMinutes());
   console.log("Seconds:", currentDate.getSeconds());
+  console.log("Local date:", currentDate.toLocaleDateString());
+  console.log("Local time:", currentDate.toLocaleTimeString());
 
   // Setting components of the date
   currentDate.setFullYear(2022);
