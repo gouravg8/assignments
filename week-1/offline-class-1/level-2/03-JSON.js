@@ -12,6 +12,6 @@ function jsonMethods(jsonString) {
 
 // Example Usage for JSON Methods
 const sampleJSONString =
-  '{"key": "value", "number": 42, "nested": {"nestedKey": "nestedValue"}}';
+  '{"key": "value", "number": 42, "nested": {"nestedKey": "nestedValue"}, "Gourav":{"age": 21, "gender": "male", "female_friends": 0, "male_friends": 4}}';
 
 jsonMethods(sampleJSONString);
