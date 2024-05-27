@@ -6,7 +6,16 @@
 */
 
 function countVowels(str) {
-    // Your code here
+  // Your code here
+  let strArr = str.toLowerCase().split("");
+  let vowelsLength = 0;
+  let vowels = ["a", "e", "i", "o", "u"];
+  for (let i = 0; i < vowels.length; i++) {
+    vowelsLength += strArr.filter((el) => el == vowels[i]).length;
+  }
+  return vowelsLength;
 }
 
-module.exports = countVowels;
+// console.log(countVowels("suar hai TU biro"));
+
+export default countVowels;

@@ -24,9 +24,13 @@ function mathMethods(value) {
 
   let squareRoot = Math.sqrt(value);
   console.log("After sqrt():", squareRoot);
+
+  let absoluteValue = Math.abs(value);
+  console.log("After abs()", absoluteValue);
 }
 
 // Example Usage for Math Methods
 mathMethods(4.56);
 mathMethods(9);
 mathMethods(25);
+mathMethods(-54);
