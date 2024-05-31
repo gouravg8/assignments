@@ -7,6 +7,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const todos = require("./todos.json");
 const fs = require("fs");
+const { v4: uuidv4 } = require('uuid');
 
 const app = express();
 
@@ -24,8 +25,10 @@ function filterTodoById(id) {
     Response: 200 OK with an array of todo items in JSON format.
     Example: GET http://localhost:3000/todos
     **/
-app.get("/todos", (req, res) => {
-  res.json(todos);
+app.get("/todos", async (req, res) => {
+  let allTodos = await fs.promises.readFile('./todos.json', 'utf8')
+  // console.log(allTodos.length)
+  res.json(JSON.parse(allTodos));
 });
 
 /**
@@ -34,13 +37,19 @@ app.get("/todos", (req, res) => {
     Response: 200 OK with the todo item in JSON format if found, or 404 Not Found if not found.
     Example: GET http://localhost:3000/todos/123
     **/
-app.get("/todos/:id", (req, res) => {
-  let id = req.params.id;
-  let filteredItems = filterTodoById(id);
-  if (!filteredItems.length && !filteredItems.length > 0) {
-    res.status(404).send("Not found");
+app.get("/todos/:id", async (req, res) => {
+  let { id } = req.params;
+  let allTodos = await fs.promises.readFile('./todos.json', 'utf8');
+  let filteredItems = JSON.parse(allTodos)
+  filteredItems = filteredItems.filter(item => item.id == id);
+  // let filteredItems = filterTodoById(id);
+  if (!filteredItems.length > 0) {
+    res.status(404).send("Todo Not found");
+  } else {
+    console.log(filteredItems[0].id)
+    console.log('there is found item of length: ', filteredItems.length);
+    res.json(filteredItems[0]);
   }
-  res.json(filteredItems);
 });
 /**
   3. POST /todos - Create a new todo item
@@ -52,14 +61,14 @@ app.get("/todos/:id", (req, res) => {
     **/
 app.post("/todos", async (req, res) => {
   let wholeTextContainer = [];
-  let oldText;
-  let newText = req.body;
+  let allTodos = JSON.parse(await fs.promises.readFile('./todos.json', 'utf8'))
+  let newText = { id: uuidv4(), ...req.body };
   try {
     let isTodoAlreadyPresent = filterTodoById(newText.id);
     if (isTodoAlreadyPresent.length > 0) {
       res.status(403).json({ message: "todo already present" });
     } else {
-      wholeTextContainer = [...todos, newText];
+      wholeTextContainer = [...allTodos, newText];
       await fs.promises.writeFile(
         "./todos.json",
         JSON.stringify(wholeTextContainer)
@@ -68,7 +77,7 @@ app.post("/todos", async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-  res.status(200).json(newText);
+  res.status(201).json(newText);
 });
 /**
   4. PUT /todos/:id - Update an existing todo item by ID
@@ -78,22 +87,19 @@ app.post("/todos", async (req, res) => {
     Example: PUT http://localhost:3000/todos/123
     Request Body: { "title": "Buy groceries", "completed": true }
     **/
-app.put("/todos/:id", (req, res) => {
+app.put("/todos/:id", async (req, res) => {
   let id = req.params.id;
-  let body = req.body;
-  let isTodoAlreadyPresent = filterTodoById(id);
+  let { title, description } = req.body;
   let wholeTextContainer;
+
+  let allTodos = await fs.promises.readFile('./todos.json', 'utf8');
+  let isTodoAlreadyPresent = JSON.parse(allTodos).filter(item => item.id == id);
   if (isTodoAlreadyPresent) {
-    let updatedBody = [
-      {
-        ...isTodoAlreadyPresent[0],
-        title: body.title,
-        description: body.description,
-      },
-    ];
-    wholeTextContainer = [...todos, ...updatedBody];
     try {
+      wholeTextContainer = [{ ...isTodoAlreadyPresent[0], title, description }]
+      console.log(wholeTextContainer)
       fs.promises.writeFile("./todos.json", JSON.stringify(wholeTextContainer));
+      res.json({ message: 'todo updated' })
     } catch (error) {
       console.log(error);
     }
@@ -112,5 +118,22 @@ app.put("/todos/:id", (req, res) => {
   Testing the server - run `npm run test-todoServer` command in terminal
  */
 
-app.listen(3000, () => console.log("listening at 3000"));
+app.delete('/todos/:id', async (req, res) => {
+  const { id } = req.params;
+  let allTodos = JSON.parse(await fs.promises.readFile('./todos.json', 'utf8'))
+  let index = allTodos.findIndex(item => item.id == id);
+
+  const newArrayOfDeletedTodo = await allTodos.splice(index, 1);
+
+  // console.log(allTodos);
+  // res.json({alltodos: allTodos, newdelarr:newArrayOfDeletedTodo})
+
+  await fs.promises.writeFile('./todos.json', JSON.stringify(allTodos));
+
+  res.json({ message: 'todo deleted' })
+})
+
+app.get('*', (req, res) => res.status(404).json({ message: 'Todo not existed' }))
+
+app.listen(8001, () => console.log("listening at 8001"));
 module.exports = app;
