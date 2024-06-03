@@ -1,10 +1,6 @@
-import pkg from "jsonwebtoken";
-const { sign, verify, decode } = pkg;
-import { signUser } from "./zod.js";
-// process.loadEnvFile();
+const jwt = require('jsonwebtoken');
+const jwtPassword = 'secret';
 
-// const jwtPassword = "secret";
-const jwtPassword = "thisIsMySecretKey";
 
 /**
  * Generates a JWT for a given username and password.
@@ -19,16 +15,14 @@ const jwtPassword = "thisIsMySecretKey";
  */
 function signJwt(username, password) {
   // Your code here
-
-  const jwtToken = sign({ username }, jwtPassword);
-  const passedUserSignup = signUser.safeParse({ username, password });
-  if (!passedUserSignup.success) {
+  const validEmail = username.includes('@');
+  const validPass = password.length >= 6;
+  if (validEmail && validPass) {
+    const token = jwt.sign({ username, password }, jwtPassword);
+    return token;
+  } else
     return null;
-  }
-  // console.log(decode(jwtToken).username, jwtPassword);
-  return jwtToken;
 }
-
 /**
  * Verifies a JWT using a secret key.
  *
@@ -39,7 +33,13 @@ function signJwt(username, password) {
  */
 function verifyJwt(token) {
   // Your code here
-  return verify(token, jwtPassword, (err, decode) => (err ? false : true));
+  let ans = true;
+  try {
+    jwt.verify(token, jwtPassword);
+  } catch (error) {
+    ans = false;
+  }
+  return ans;
 }
 
 /**
@@ -51,9 +51,17 @@ function verifyJwt(token) {
  */
 function decodeJwt(token) {
   // Your code here
-  const decoding = decode(token);
-  if (decoding) return true;
-  return false;
+  const decoded = jwt.decode(token)
+  if (decoded) {
+    return true
+  } else {
+    return false;
+  }
 }
 
-export { signJwt, verifyJwt, decodeJwt, jwtPassword };
+module.exports = {
+  signJwt,
+  verifyJwt,
+  decodeJwt,
+  jwtPassword,
+};
