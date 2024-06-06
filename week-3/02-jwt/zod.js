@@ -1,7 +1,7 @@
-import { z } from "zod";
+const z = require("zod");
 
 const signUser = z.object({
   username: z.string().email(),
   password: z.string().min(6),
 });
-export { signUser };
+module.exports = signUser;
