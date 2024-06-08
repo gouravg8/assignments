@@ -16,10 +16,12 @@ const UserSchema = new Schema({
   // Schema definition here
   username: String,
   password: String,
-  purchasedCourses: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Course",
-  },
+  purchasedCourses: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Course",
+    },
+  ],
 });
 
 const CourseSchema = new Schema({
