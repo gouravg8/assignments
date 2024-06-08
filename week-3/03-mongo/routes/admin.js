@@ -16,22 +16,31 @@ router.post("/signup", async (req, res) => {
 
 router.post("/courses", adminMiddleware, async (req, res) => {
   // Implement course creation logic
-  const { username, password } = req.headers;
   const { title, description, price, imageLink } = req.body;
 
-  console.log(username, password);
-
-  //   try {
-  //     const out = await Course.create({ title, description, price, imageLink });
-  //     res.json({ message: "Course created successfully", courseId: out._id });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  res.json({ message: "hello biro" });
+  if (title && description && price && imageLink) {
+    await Course.create({ title, description, price, imageLink })
+      .then((course) =>
+        res.json({
+          message: "Course created successfully",
+          courseId: course._id,
+        })
+      )
+      .catch((err) => {
+        console.log(err);
+        res.json({ message: "Some fields are missing" });
+      });
+  }
 });
 
-router.get("/courses", adminMiddleware, (req, res) => {
+router.get("/courses", adminMiddleware, async (req, res) => {
   // Implement fetching all courses logic
+  await Course.find()
+    .then((course) => res.json(course))
+    .catch((err) => {
+      console.log("error hai", err);
+      res.json({ errorIs: err });
+    });
 });
 
 export default router;
