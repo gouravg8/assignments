@@ -15,7 +15,6 @@ const AdminSchema = new Schema({
   },
   password: {
     type: String,
-    unique: true,
     required: true,
   },
 });
@@ -29,7 +28,6 @@ const UserSchema = new Schema({
   },
   password: {
     type: String,
-    unique: true,
     required: true,
   },
   purchasedCourses: [
