@@ -1,7 +1,7 @@
 import { Router } from "express";
 import adminMiddleware from "../middleware/admin.js";
 const router = Router();
-import { Admin } from "../db/index.js";
+import { Admin, Course } from "../db/index.js";
 import jwt from "jsonwebtoken";
 
 // Admin Routes
@@ -12,7 +12,8 @@ router.post("/signup", async (req, res) => {
     if (!(username && password)) {
       res.status(400).json({ message: "Pleaser enter username and password" });
     }
-    const adminExisted = Admin.findOne({ username, password });
+    const adminExisted = await Admin.findOne({ username });
+    // console.log(adminExisted);
     if (adminExisted) {
       res.status(409).json({ message: "Admin already existed" });
     } else {
@@ -42,13 +43,12 @@ router.post("/signin", async (req, res) => {
     const admin = await Admin.findOne({ username, password });
     if (admin) {
       const token = jwt.sign({ username }, process.env.JWTPASSKEY);
-      console.log(req.cookies);
 
       let options = {
-        expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+        expires: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000),
         httpOnly: true,
       };
-      res.cookie("token", token, options).json({ success: true, token, admin });
+      res.cookie("token", token, options).json({ token });
     } else {
       res.json({ message: "No user found" });
     }
@@ -57,12 +57,35 @@ router.post("/signin", async (req, res) => {
   }
 });
 
-router.post("/courses", adminMiddleware, (req, res) => {
+router.post("/courses", adminMiddleware, async (req, res) => {
   // Implement course creation logic
+  const { title, description, price, imageLink } = req.body;
+  try {
+    await Course.create({
+      title,
+      description,
+      price,
+      imageLink,
+    }).then((course) => {
+      res.json({
+        message: "Course created successfully",
+        courseId: course._id,
+      });
+    });
+  } catch (error) {
+    res.json({ error });
+  }
 });
 
-router.get("/courses", adminMiddleware, (req, res) => {
+router.get("/courses", adminMiddleware, async (req, res) => {
   // Implement fetching all courses logic
+  try {
+    await Course.find().then((course) => {
+      res.json(course);
+    });
+  } catch (error) {
+    res.json(error);
+  }
 });
 
 export default router;
