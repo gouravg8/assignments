@@ -8,7 +8,7 @@ function adminMiddleware(req, res, next) {
   const decode = jwt.verify(token, process.env.JWTPASSKEY);
   console.log("decode", decode);
   try {
-    if (decode) {
+    if (decode.username) {
       next();
     } else {
       res.status(403).json({
