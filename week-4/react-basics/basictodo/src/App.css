@@ -1,0 +1,12 @@
+button {
+  padding: "2px 4px";
+  border-radius: "4px";
+  background-color: black;
+  color: white;
+  margin: "0px 15px";
+  cursor: pointer;
+}
+/* li {
+  display: flex;
+  gap: "100px";
+} */
