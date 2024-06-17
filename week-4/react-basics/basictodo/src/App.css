@@ -1,12 +1,18 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+div {
+  padding: 10px;
+}
 button {
-  padding: "2px 4px";
-  border-radius: "4px";
+  padding: 4px;
+  border-radius: 3px;
+  border: 2px solid white;
   background-color: black;
   color: white;
-  margin: "0px 15px";
   cursor: pointer;
 }
-/* li {
-  display: flex;
-  gap: "100px";
-} */
+input {
+  padding: 4px;
+}
