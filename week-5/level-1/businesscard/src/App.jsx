@@ -1,35 +1,48 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { memo, useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Card
+        name={"Gourav"}
+        description={"A aspiring software engineer"}
+        interests={["Open source", "Full stack", "Testing"]}
+        socials={{
+          LinkedIn: "https://linkedin.com/in/gouravsoni",
+          Instagram: "https://instagram.com/g4rawan",
+          Twitter: "https://twitter.com/gouravg8",
+        }}
+      />
+      <button onClick={() => setCount(count + 1)}>count is: {count}</button>
     </>
-  )
+  );
 }
 
-export default App
+const Card = memo(({ name, description, interests, socials }) => {
+  console.log("rerenderd");
+  return (
+    <div className="cardDiv">
+      <h3 className="name">{name}</h3>
+      <p className="description">{description}</p>
+      <h4>Interest</h4>
+      <ul>
+        {interests.map((interest, index) => (
+          <li key={index}>{interest}</li>
+        ))}
+      </ul>
+      <div className="linksDiv">
+        {Object.entries(socials).map(([platform, url], index) => (
+          <a key={index} href={url}>
+            {platform}
+          </a>
+        ))}
+      </div>
+    </div>
+  );
+});
+export default App;

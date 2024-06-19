@@ -1,0 +1,32 @@
+*,
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.cardDiv {
+  width: 60%;
+  margin: 25% auto;
+  border: 2px solid black;
+  padding: 15px 30px;
+  border-radius: 8px;
+}
+
+li {
+  list-style-type: none;
+}
+a {
+  text-decoration: none;
+  color: white;
+  background-color: blue;
+  border: none;
+  padding: 6px 8px;
+  border-radius: 3px;
+  margin: 0px 5px;
+}
+.linksDiv {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
