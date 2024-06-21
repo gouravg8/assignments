@@ -3,9 +3,15 @@ body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+@media only screen and (max-width: 600px) {
+  a {
+    font-size: 0.7rem;
+  }
+}
+
 .cardDiv {
   width: 60%;
-  margin: 25% auto;
+  margin: 15% auto;
   border: 2px solid black;
   padding: 15px 30px;
   border-radius: 8px;
@@ -25,7 +31,6 @@ a {
 }
 .linksDiv {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   gap: 5px;

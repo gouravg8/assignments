@@ -1,10 +1,10 @@
-import { memo, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import React, { memo, useState } from "react";
 import "./App.css";
+import useData from "./hooks/useData";
 
 function App() {
   const [count, setCount] = useState(0);
+  const data = useData();
 
   return (
     <>
@@ -12,18 +12,18 @@ function App() {
         name={"Gourav"}
         description={"A aspiring software engineer"}
         interests={["Open source", "Full stack", "Testing"]}
-        socials={{
-          LinkedIn: "https://linkedin.com/in/gouravsoni",
-          Instagram: "https://instagram.com/g4rawan",
-          Twitter: "https://twitter.com/gouravg8",
-        }}
+        socials={[
+          ["LinkedIn", "https://linkedin.com/in/gouravsoni"],
+          ["Instagram", "https://instagram.com/g4rawan"],
+          ["Twitter", "https://twitter.com/gouravg8"],
+        ]}
       />
       <button onClick={() => setCount(count + 1)}>count is: {count}</button>
     </>
   );
 }
 
-const Card = memo(({ name, description, interests, socials }) => {
+const Card = memo(function ({ name, description, interests, socials }) {
   console.log("rerenderd");
   return (
     <div className="cardDiv">
@@ -36,9 +36,9 @@ const Card = memo(({ name, description, interests, socials }) => {
         ))}
       </ul>
       <div className="linksDiv">
-        {Object.entries(socials).map(([platform, url], index) => (
-          <a key={index} href={url}>
-            {platform}
+        {socials.map((item, index) => (
+          <a key={index} href={item[1]} target="_blank">
+            {item[0]}
           </a>
         ))}
       </div>
