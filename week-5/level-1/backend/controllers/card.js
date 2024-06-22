@@ -2,7 +2,7 @@ import { Card } from "../db/db.js";
 
 const getCard = async (req, res) => {
   try {
-    await Card.findOne({ name: req.headers.name }).then((card) =>
+    await Card.findOne({ name: req.headers.credential }).then((card) =>
       res.json(card)
     );
   } catch (error) {
