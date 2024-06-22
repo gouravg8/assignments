@@ -21,8 +21,12 @@ const adminSchema = Schema({
 
 const cardSchema = Schema({
   name: { type: String, minLength: 3, maxLength: 20, required: true },
-  description: { type: String, maxLength: 20 },
+  description: { type: String, maxLength: 50 },
   interests: { type: [String], required: true },
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: "Admin",
+  },
   socials: {
     type: [[String, String]],
     minLength: 3,
