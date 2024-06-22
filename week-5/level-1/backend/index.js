@@ -14,6 +14,9 @@ app.use(
     secret: process.env.SESSIONKEY,
     resave: true,
     saveUninitialized: true,
+    cookie: {
+      maxAge: "2d",
+    },
   })
 );
 app.use(bodyParser.urlencoded({ extended: true }));
