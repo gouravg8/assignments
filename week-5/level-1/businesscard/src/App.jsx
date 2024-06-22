@@ -5,7 +5,6 @@ import useData from "./hooks/useData";
 function App() {
   const [count, setCount] = useState(0);
   const data = useData();
-
   return (
     <>
       <Card
@@ -18,7 +17,6 @@ function App() {
           ["Twitter", "https://twitter.com/gouravg8"],
         ]}
       />
-      <button onClick={() => setCount(count + 1)}>count is: {count}</button>
     </>
   );
 }
@@ -37,7 +35,7 @@ const Card = memo(function ({ name, description, interests, socials }) {
       </ul>
       <div className="linksDiv">
         {socials.map((item, index) => (
-          <a key={index} href={item[1]} target="_blank">
+          <a key={index} href={item[1]} target="_blank" className="text-white">
             {item[0]}
           </a>
         ))}
@@ -45,4 +43,5 @@ const Card = memo(function ({ name, description, interests, socials }) {
     </div>
   );
 });
+
 export default App;
