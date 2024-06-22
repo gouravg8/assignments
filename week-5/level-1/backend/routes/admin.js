@@ -7,11 +7,15 @@ router.post("/", async (req, res) => {
   const { username, password } = req.body;
   const userExisted = await Admin.findOne({ username });
   if (userExisted) {
+    req.session.username = userExisted.username;
+    req.session.password = userExisted.password;
     res.json({ message: "Admin already existed" });
   } else {
-    await Admin.create({ username, password }).then((user) =>
-      res.json({ message: "Admin created with username " + username })
-    );
+    await Admin.create({ username, password }).then((user) => {
+      req.session.username = user.username;
+      req.session.password = user.password;
+      res.json({ message: "Admin created with username " + username });
+    });
   }
 });
 export default router;
