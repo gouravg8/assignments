@@ -4,6 +4,7 @@ import "./App.css";
 import ButtonsWithTodo from "./components/ButtonsWithTodo";
 import SumToN from "./components/SumToN";
 import UseCallbackExp from "./components/UseCallbackExp";
+import Todo from "./components/Todo";
 
 // function Textcompo() {
 //   return (
@@ -56,7 +57,8 @@ const App = () => {
     <div>
       <h1>This is the basic todo</h1>
       {/* <SumToN n={4}/> */}
-      <UseCallbackExp />
+      <Todo />
+      {/* <UseCallbackExp /> */}
       {/* <ButtonsWithTodo /> */}
       {/* <div>
         <input
