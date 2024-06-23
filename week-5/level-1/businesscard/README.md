@@ -1,0 +1,40 @@
+# Business Card
+
+This is the assignment given by Harkirat on their cohort for week-5 where
+
+```
+Problem: we have to create a business card which contains the name, description, interests, social links with it's names
+```
+
+## To setup and run the project
+
+For backend
+
+```bash
+cd backend
+pnpm install
+node index.js
+```
+
+For frontend
+
+```bash
+cd businesscard
+pnpm install
+pnpm run dev
+```
+
+Create DB schema
+
+```bash
+cd backend/db
+```
+
+convert it from  
+`process.loadEnvFile("./.env.local");`  
+to  
+`process.loadEnvFile("../.env.local");`
+
+```bash
+node db.js
+```
