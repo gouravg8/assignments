@@ -1,12 +1,11 @@
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 
 const UseCallbackExp = () => {
   const [counter, setCounter] = useState(0);
 
-  const clickHandle = useCallback(() => {
+  function clickHandle() {
     console.log("child renders");
-  }, []);
-
+  }
   return (
     <div>
       <ChildCompo fn={clickHandle} />
