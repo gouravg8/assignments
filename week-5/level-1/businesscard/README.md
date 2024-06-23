@@ -1,8 +1,40 @@
-# React + Vite
+# Business Card
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the assignment given by Harkirat on their cohort for week-5 where
 
-Currently, two official plugins are available:
+```
+Problem: we have to create a business card which contains the name, description, interests, social links with it's names
+```
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## To setup and run the project
+
+For backend
+
+```bash
+cd backend
+pnpm install
+node index.js
+```
+
+For frontend
+
+```bash
+cd businesscard
+pnpm install
+pnpm run dev
+```
+
+Create DB schema
+
+```bash
+cd backend/db
+```
+
+convert it from  
+`process.loadEnvFile("./.env.local");`  
+to  
+`process.loadEnvFile("../.env.local");`
+
+```bash
+node db.js
+```
