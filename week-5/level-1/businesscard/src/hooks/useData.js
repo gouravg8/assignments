@@ -5,13 +5,12 @@ const url = "http://localhost:3000/card";
 function useData() {
   const [result, setResult] = useState("");
   const credential = Cookies.get("tokenHai");
+  // console.log(credential);
   useEffect(() => {
     let out = axios.get(url, { headers: { credential } }).then((res) => {
-      console.log(out);
+      setResult(res.data);
       return res.data;
     });
-
-    setResult(out);
   }, []);
 
   return result;

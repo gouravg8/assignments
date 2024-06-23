@@ -18,7 +18,8 @@ const AdminSignin = () => {
     });
 
     if (data.message === "success") {
-      Cookies.set("tokenHai", data.token);
+      var inFifteenMinutes = new Date(new Date().getTime() + 15 * 60 * 1000);
+      Cookies.set("tokenHai", data.token, { expires: inFifteenMinutes });
       console.log("http://localhost:5173/");
       return navigate("/");
     }
