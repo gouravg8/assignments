@@ -4,19 +4,18 @@ import cardRouter from "./routes/card.js";
 import cors from "cors";
 import bodyParser from "body-parser";
 import session from "express-session";
+import cookieParser from "cookie-parser";
 process.loadEnvFile(".env.local");
 const app = express();
 const port = 3000;
 
-app.use(cors());
+app.use(cookieParser());
+app.use(cors({ credentials: true, origin: true, withCredentials: true }));
 app.use(
   session({
     secret: process.env.SESSIONKEY,
     resave: true,
     saveUninitialized: true,
-    cookie: {
-      maxAge: "2d",
-    },
   })
 );
 app.use(bodyParser.urlencoded({ extended: true }));
