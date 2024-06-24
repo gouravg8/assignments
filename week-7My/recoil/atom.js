@@ -1,6 +1,9 @@
 import axios from "axios";
 import { selector, atom } from "recoil";
+import { TODOS } from "./src/todos";
+import { atomFamily } from "recoil";
 
+// console.log(TODOS.find((x) => x.id == id));
 const notifications = atom({
   key: "notifications",
   default: selector({
@@ -12,6 +15,11 @@ const notifications = atom({
       return res.data;
     },
   }),
+});
+
+const todosFaimily = atomFamily({
+  key: "todoFaimily",
+  default: (id) => TODOS.find((x) => x.id === id),
 });
 
 const totalCount = selector({
@@ -27,4 +35,4 @@ const totalCount = selector({
   },
 });
 
-export { notifications, totalCount };
+export { notifications, totalCount, todosFaimily };

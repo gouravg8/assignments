@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import { useRecoilValue } from "recoil";
-import { notifications, totalCount } from "../atom";
+import { notifications, todosFaimily, totalCount } from "../atom";
 import { formatCount } from "./common";
 
 // important to learn
@@ -29,26 +29,22 @@ function App() {
       </button>
       <button>messages({formatCount(notificationAtom.messaging)})</button>
 
-      {/* <button
-        onClick={() =>
-          setNotificationAtom((prev) => ({ ...prev, jobs: prev.jobs + 1 }))
-        }
-      >
-        Increase jobs
-      </button>
-
-      <button
-        onClick={() =>
-          setNotificationAtom((prev) => ({
-            ...prev,
-            messaging: prev.messaging + 1,
-          }))
-        }
-      >
-        Increase message
-      </button> */}
+      <Todo id={1} />
+      <Todo id={1} />
+      <Todo id={2} />
+      <Todo id={2} />
+      <Todo id={3} />
     </>
   );
 }
 
+const Todo = ({ id }) => {
+  const todo = useRecoilValue(todosFaimily(id));
+  // console.log(todo);
+  return (
+    <>
+      <h1 key={id}>{todo.title}</h1>
+    </>
+  );
+};
 export default App;
