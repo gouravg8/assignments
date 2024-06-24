@@ -1,34 +1,55 @@
 import { useState } from "react";
 import "./App.css";
 import { useRecoilValue, useRecoilState } from "recoil";
-import { jobAtom, messageAtom, notificationAtom, totalCount } from "../atom";
+import { notifications, totalCount } from "../atom";
 import { formatCount } from "./common";
-import { useSetRecoilState } from "recoil";
+import { useEffect } from "react";
+import axios from "axios";
 
 // important to learn
 // recoil-> useRecoilValue, useSetRecoilState, useRecoilState[val,set]
 function App() {
-  const [jobAtomState, setJobAtomState] = useRecoilState(jobAtom);
-  const notificationCount = useRecoilValue(notificationAtom);
-  const messageCount = useRecoilValue(messageAtom);
-  const setMessageCount = useSetRecoilState(messageAtom);
+  const [notificationAtom, setNotificationAtom] = useRecoilState(notifications);
   const totalMessageCount = useRecoilValue(totalCount);
 
-  return (
-    <>
-      <p>Total message count: {totalMessageCount}</p>
-      <button>home</button>
-      <button>jobs({formatCount(jobAtomState)})</button>
-      <button>notifications({formatCount(notificationCount)})</button>
-      <button>messages({formatCount(messageCount)})</button>
+  useEffect(() => {
+    axios
+      .get("https://sum-server.100xdevs.com/notifications")
+      .then((res) => setNotificationAtom(res.data));
+  }, []);
+  if (totalMessageCount == 0) {
+    return <h2>Loading...</h2>;
+  } else
+    return (
+      <>
+        <p>Total message count: {totalMessageCount}</p>
+        <button>home</button>
+        <button>jobs({formatCount(notificationAtom.jobs)})</button>
+        <button>
+          notifications({formatCount(notificationAtom.notifications)})
+        </button>
+        <button>messages({formatCount(notificationAtom.messaging)})</button>
 
-      <button onClick={() => setJobAtomState((c) => c + 1)}>
-        Increase jobs
-      </button>
+        <button
+          onClick={() =>
+            setNotificationAtom((prev) => ({ ...prev, jobs: prev.jobs + 1 }))
+          }
+        >
+          Increase jobs
+        </button>
 
-      <button onClick={() => setMessageCount((c) => c + 1)}>+message</button>
-    </>
-  );
+        <button
+          onClick={() =>
+            setNotificationAtom((prev) => ({
+              ...prev,
+              messaging: prev.messaging + 1,
+            }))
+          }
+        >
+          Increase message
+        </button>
+      </>
+    );
 }
 
 export default App;
