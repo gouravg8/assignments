@@ -1,12 +1,31 @@
-You have to create a simple React App which has a reusable Card Component which has the following
- - Ability to pass in props to the Component
- - The Card must show a person's
-    - Name
-    - A short description
-    - LinkedIn, Twitter and other Social Media Handle buttons
-    - Interests Section
- - You can assume that this is kind of an e-business card and feel free to put in your creativity
- - Additional & Slightly advanced:
-    - Create a page where you can add these kind of Cards by taking input from the user
-    - Create a backend server where these cards get stored in a DB and can handle basic CRUD operations
-    - Give the feature to perform CRUD operations from the frontend (Can be restricted to the admin only as well)
+# Business Card
+
+This is the assignment given by Harkirat on their cohort for week-5 where
+
+```
+Problem: we have to create a business card which contains the name, description, interests, social links with it's names
+```
+
+## To setup and run the project
+
+For backend
+
+```bash
+cd backend
+pnpm install
+node index.js
+```
+
+For frontend
+
+```bash
+cd businesscard
+pnpm install
+pnpm run dev
+```
+
+Create DB schema(from `backend` folder)
+
+```bash
+node db/db.js
+```
