@@ -3,6 +3,7 @@ import "./App.css";
 import { useRecoilValue } from "recoil";
 import { notifications, todosFaimily, totalCount } from "../atom";
 import { formatCount } from "./common";
+import { useRecoilStateLoadable } from "recoil";
 
 // important to learn
 // recoil-> useRecoilValue, useSetRecoilState, useRecoilState[val,set]
@@ -39,12 +40,18 @@ function App() {
 }
 
 const Todo = ({ id }) => {
-  const todo = useRecoilValue(todosFaimily(id));
+  const [todo, setTodo] = useRecoilStateLoadable(todosFaimily(id));
   // console.log(todo);
-  return (
-    <>
-      <h1 key={id}>{todo.title}</h1>
-    </>
-  );
+  console.log(todo);
+  if (todo.state == "loading") {
+    return <h1>Loading...</h1>;
+  } else if (todo.state == "hasValue")
+    return (
+      <>
+        <h1 key={id}>
+          {todo.contents.title}, {todo.contents.description}
+        </h1>
+      </>
+    );
 };
 export default App;
