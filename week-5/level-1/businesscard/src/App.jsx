@@ -4,22 +4,13 @@ import Cookies from "js-cookie";
 import getData from "./hooks/useData";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import useData from "./hooks/useData";
 
 const url = "http://localhost:3000/card";
 function App() {
-  const [data, setData] = useState();
-  const [count, setCount] = useState(0);
+  const [data, credential] = useData("/card");
 
-  const credential = Cookies.get("tokenHai");
-  useEffect(() => {
-    axios.get(url, { headers: { credential } }).then((res) => {
-      setData(res.data);
-      return res.data;
-    });
-    console.log("fetching");
-  }, []);
-
-  // const handleClick = (e) => {
+  //   const handleClick = (e) => {
   //   e.preventDefault();
   //   // console.log("click", mounted);
   //   setCount(count + 1);
@@ -66,16 +57,7 @@ const SignInButton = memo(() => {
   );
 });
 
-const Card = memo(function ({
-  name = "Gourav",
-  description = "A aspiring software engineer",
-  interests = ["Open source", "Full stack", "Testing"],
-  socials = [
-    ["LinkedIn", "https://linkedin.com/in/gouravsoni"],
-    ["Instagram", "https://instagram.com/g4rawan"],
-    ["Twitter", "https://twitter.com/gouravsoni88"],
-  ],
-}) {
+const Card = memo(function ({ name, description, interests, socials }) {
   console.log("rerenderd");
 
   const handleEdit = () => {
