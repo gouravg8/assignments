@@ -13,7 +13,7 @@ function App() {
   return (
     <>
       <div>
-        {/* {isDelay && <MyCompo />} */}
+        {isDelay && <MyCompo />}
         {/* {isDelay && <MyCompo2 />} */}
       </div>
     </>
