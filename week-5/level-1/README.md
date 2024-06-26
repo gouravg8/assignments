@@ -3,7 +3,7 @@
 This is the assignment given by Harkirat on their cohort for week-5 where
 
 ```
-Problem: we have to create a business card which contains the name, description, interests, social links with it's names
+Problem: we have to create a business card that contains the name, description, interests, and social links with its names
 ```
 
 ## To setup and run the project
