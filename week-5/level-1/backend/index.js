@@ -11,13 +11,13 @@ const port = 3000;
 
 app.use(cookieParser());
 app.use(cors({ credentials: true, origin: true, withCredentials: true }));
-app.use(
-  session({
-    secret: process.env.SESSIONKEY,
-    resave: true,
-    saveUninitialized: true,
-  })
-);
+// app.use(
+//   session({
+//     secret: process.env.SESSIONKEY,
+//     resave: true,
+//     saveUninitialized: true,
+//   })
+// );
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use("/iamadmin", adminRouter);
