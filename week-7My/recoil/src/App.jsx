@@ -4,6 +4,7 @@ import { useRecoilValue } from "recoil";
 import { notifications, todosFaimily, totalCount } from "../atom";
 import { formatCount } from "./common";
 import { useRecoilStateLoadable } from "recoil";
+import { useRecoilValueLoadable } from "recoil";
 
 // important to learn
 // recoil-> useRecoilValue, useSetRecoilState, useRecoilState[val,set]
@@ -40,9 +41,9 @@ function App() {
 }
 
 const Todo = ({ id }) => {
-  const [todo, setTodo] = useRecoilStateLoadable(todosFaimily(id));
+  const todo = useRecoilValueLoadable(todosFaimily(id)); // for only value
   // console.log(todo);
-  console.log(todo);
+  // console.log(todo);
   if (todo.state == "loading") {
     return <h1>Loading...</h1>;
   } else if (todo.state == "hasValue")
