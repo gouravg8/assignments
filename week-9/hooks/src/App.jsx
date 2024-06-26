@@ -3,18 +3,18 @@ import "./App.css";
 import { useEffect } from "react";
 
 function App() {
-  const [isDelay, setIsDelay] = useState(true);
+  const [isDelay, setIsDelay] = useState(false);
   useEffect(() => {
-    setTimeout(() => {
-      setIsDelay(false);
-    }, 5000);
+    setInterval(() => {
+      setIsDelay((d) => !d);
+    }, 4000);
   });
 
   return (
     <>
       <div>
-        {isDelay && <MyCompo />}
-        <MyCompo2 />
+        {/* {isDelay && <MyCompo />} */}
+        {/* {isDelay && <MyCompo2 />} */}
       </div>
     </>
   );
@@ -45,11 +45,19 @@ export class MyCompo2 extends Component {
   increment = () => {
     this.setState({ count: this.state.count + 1 });
   };
+
+  componentDidMount() {
+    console.log("mounted 2");
+  }
+  componentWillUnmount() {
+    console.log("unmounted 2");
+  }
   render() {
     return (
       <div>
-        <p>{this.state.count}</p>
-        <button onClick={this.increment}>increase</button>
+        <p>compo 2</p>
+        {/* <p>{this.state.count}</p> */}
+        {/* <button onClick={this.increment}>increase</button> */}
       </div>
     );
   }
