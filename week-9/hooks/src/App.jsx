@@ -2,6 +2,7 @@ import React, { Component, useState } from "react";
 import "./App.css";
 import { useEffect } from "react";
 import Todo from "./components/Todo";
+import OnlineOffline from "./components/OnlineOffline";
 
 function App() {
   // const [isDelay, setIsDelay] = useState(false);
@@ -16,7 +17,8 @@ function App() {
       <div>
         {/* {isDelay && <MyCompo />} */}
         {/* {isDelay && <MyCompo2 />} */}
-        <Todo />
+        {/* <Todo /> */}
+        <OnlineOffline />
       </div>
     </>
   );
