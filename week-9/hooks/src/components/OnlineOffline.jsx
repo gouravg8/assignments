@@ -1,6 +1,5 @@
 import React from "react";
-import { useState } from "react";
-import useIsOnline from "../hooks/isOnline";
+import useIsOnline from "../hooks/useIsOnline";
 
 const OnlineOffline = () => {
   const isOnline = useIsOnline();
