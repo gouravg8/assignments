@@ -2,8 +2,7 @@ import React from "react";
 import useData from "../hooks/useData";
 
 const Todo = () => {
-  const { data, loading } = useData();
-  console.log(data);
+  const { data, loading } = useData(4);
   if (loading) {
     return <div>loading...</div>;
   } else
