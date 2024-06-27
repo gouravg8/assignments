@@ -4,12 +4,12 @@ import { useEffect } from "react";
 import Todo from "./components/Todo";
 
 function App() {
-  const [isDelay, setIsDelay] = useState(false);
-  useEffect(() => {
-    setInterval(() => {
-      setIsDelay((d) => !d);
-    }, 4000);
-  });
+  // const [isDelay, setIsDelay] = useState(false);
+  // useEffect(() => {
+  //   setInterval(() => {
+  //     setIsDelay((d) => !d);
+  //   }, 4000);
+  // });
 
   return (
     <>
