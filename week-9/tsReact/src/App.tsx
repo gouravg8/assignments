@@ -1,14 +1,16 @@
 import "./App.css";
 
+type idType = string | number;
+
 interface Todo {
-  id: number;
+  id: idType;
   title: string;
   description: string;
 }
 
 const todos: Todo[] = [
   { id: 1, title: "todo1", description: "desc 1" },
-  { id: 2, title: "todo2", description: "desc 2" },
+  { id: "2", title: "todo2", description: "desc 2" },
   { id: 3, title: "todo3", description: "desc 3" },
 ];
 function App() {
@@ -26,7 +28,7 @@ const Todo = ({ todo }: { todo: Todo[] }) => {
     <>
       {todo.map((t: Todo) => (
         <p key={t.id}>
-          {t.title}, {t.description}
+          {t.title}, {t.description}, key:{typeof t.id}
         </p>
       ))}
     </>
