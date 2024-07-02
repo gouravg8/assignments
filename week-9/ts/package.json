@@ -1,0 +1,12 @@
+{
+  "name": "ts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "tart": "tsc -b"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
