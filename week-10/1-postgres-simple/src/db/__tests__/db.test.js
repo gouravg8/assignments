@@ -1,7 +1,7 @@
 import { client } from '../..';
-import { createUser, getUser } from '../user';
-import { createTables, dropTables } from '../setup';
-import { createTodo, updateTodo, getTodos } from '../todo';
+import { createUser, getUser } from '../user.js';
+import { createTables, dropTables } from '../setup.js';
+import { createTodo, updateTodo, getTodos } from '../todo.js';
 
 beforeAll(async () => {
     await client.connect();
@@ -39,7 +39,13 @@ describe('User Database Operations', () => {
 
 
 describe('Todo Operations', () => {
-    let userId: number;
+    let userId;
+    // interface Todo {
+    //   id: number;
+    //   title: string;
+    //   description: string;
+    //   done: boolean;
+    // }
   
     beforeAll(async () => {
       // Assuming you have a function to get a user by username for test setup
@@ -50,8 +56,7 @@ describe('Todo Operations', () => {
     test('createTodo inserts a new todo for a user', async () => {
       const title = 'Test Todo';
       const description = 'Test Description';
-      const todo = await createTodo(userId, title, description);
-  
+      const todo = await createTodo(userId, title, description)
       expect(todo).toHaveProperty('id');
       expect(todo.title).toEqual(title);
       expect(todo.description).toEqual(description);
