@@ -1,4 +1,4 @@
-import { client } from '../..';
+import { client } from '../../index.js';
 import { createUser, getUser } from '../user.js';
 import { createTables, dropTables } from '../setup.js';
 import { createTodo, updateTodo, getTodos } from '../todo.js';
@@ -39,7 +39,7 @@ describe('User Database Operations', () => {
 
 
 describe('Todo Operations', () => {
-    let userId;
+    let userId: number;
     // interface Todo {
     //   id: number;
     //   title: string;
